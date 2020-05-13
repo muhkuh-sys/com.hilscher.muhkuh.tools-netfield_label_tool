@@ -260,8 +260,12 @@ function netFieldLabel:_init(tLog)
 
         bSupplyVoltageReferenceType:u1
 
+        abCalibrationRoutineVersion:{
+          8*u1
+        }
+
         abReserved:{
-          19*u1
+          11*u1
         }
       ]]),
       sizStruct = 548,
