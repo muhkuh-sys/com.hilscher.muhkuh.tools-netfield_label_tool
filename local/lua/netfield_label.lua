@@ -679,7 +679,7 @@ function netFieldLabel:patchWithData(tPatchData)
 
   -- Iterate over all tags.
   for strTagCnt, tPatchTag in pairs(tPatchData) do
-    uiTagCnt = tonumber(strTagCnt)
+    local uiTagCnt = tonumber(strTagCnt)
 
     local strPatchTagId = tPatchTag.id
     local tPatchTagAttr = self:__getTagAttributes(strPatchTagId)
