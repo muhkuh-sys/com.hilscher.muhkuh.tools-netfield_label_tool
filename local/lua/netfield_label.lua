@@ -518,6 +518,7 @@ function netFieldLabel:readBinary(strLabel)
   local tLog = self.tLog
   local sizNetFieldLabelHeader = self.sizNetFieldLabelHeader
   local sizNetFieldLabelFooter = self.sizNetFieldLabelFooter
+  local tResult
 
   -- Clear any old tags.
   self.tTags = nil
@@ -553,10 +554,13 @@ function netFieldLabel:readBinary(strLabel)
           tLog.error('Input checksum mismatch. File=0x%08x Calculated=0x%08x', tLabelFooter.ulChecksum, ulCrc32)
         else
           self:__binary2Tags(strLabelContents)
+          tResult = true
         end
       end
     end
   end
+
+  return tResult
 end
 
 
