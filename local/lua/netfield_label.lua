@@ -700,7 +700,7 @@ function netFieldLabel:patchWithData(tPatchData)
           tLog.error('Failed to parse the data for patch tag %d: %s', uiTagCnt, strError)
           error('Failed to parse the patch data.')
         else
-          table.insert(tTags, {
+          table.insert(self.tTags, {
             id = tPatchTagAttr.id,
             data = tPatchTag.data,
             attr = tPatchTagAttr
