@@ -566,8 +566,6 @@ end
 
 
 function netFieldLabel:tobinary(fAddPadding)
-  local tLog = self.tLog
-
   -- Get the contents of the label.
   local strLabelContents = self:__tags2binary()
   local sizLabelContents = string.len(strLabelContents)
@@ -603,10 +601,9 @@ end
 
 
 function netFieldLabel:totable()
-  local tLog = self.tLog
   local atTags = {}
 
-  for uiCnt, tAttr in ipairs(self.tTags) do
+  for _, tAttr in ipairs(self.tTags) do
     local tTag = {
       id = tAttr.attr.name,
       data = tAttr.data
