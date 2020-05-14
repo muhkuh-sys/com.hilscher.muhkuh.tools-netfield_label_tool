@@ -326,6 +326,11 @@ function netFieldLabel:_init(tLog)
 # end
 
         bSupplyVoltageReferenceType: $(string.format('0x%04x', data.bSupplyVoltageReferenceType))
+
+        abCalibrationRoutineVersion:
+# for uiCnt, ucValue in ipairs(data.abCalibrationRoutineVersion) do
+          $(string.format('[%02d] = 0x%02x', uiCnt-1, ucValue))
+# end
       ]]
     },
     [self.NETFIELD_TAG_ID_WIRELESS_CONFIGURATION] = {
@@ -530,11 +535,11 @@ function netFieldLabel:readBinary(strLabel)
     if tLabelHeader.abStartToken~='netFIELDtag>' then
       -- Missing start token.
       tLog.error('Missing start token.')
-  
+
     elseif tLabelHeader.usLabelSize~=(tLabelHeader.usContentSize+sizNetFieldLabelHeader+sizNetFieldLabelFooter) then
       -- Label and header size do not match.
       tLog.error('Label and header size do not match.')
-  
+
     elseif string.len(strLabel)<tLabelHeader.usLabelSize then
       -- The label is smaller than the header requests.
       tLog.error('The label is smaller than the header requests.')
