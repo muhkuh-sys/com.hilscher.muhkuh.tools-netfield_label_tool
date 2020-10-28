@@ -9,6 +9,7 @@ local pl = require'pl.import_into'()
 
 -- Copy all additional files.
 local atScripts = {
+  ['local/demo_extract.lua']         = '${install_base}/',
   ['local/netfield_label_tool.lua']  = '${install_base}/',
   ['local/lua/netfield_label.lua']   = '${install_lua_path}/',
 
