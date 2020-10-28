@@ -1,7 +1,6 @@
 local __APPLICATION__ = 'netfieldlabel'
 local __VERSION__ = '1.0.0'
 
-require 'muhkuh_cli_init'
 local argparse = require 'argparse'
 local json = require 'dkjson'
 local cNetfieldLabel = require 'netfield_label'

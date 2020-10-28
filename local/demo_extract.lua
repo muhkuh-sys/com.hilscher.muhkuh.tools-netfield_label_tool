@@ -1,7 +1,6 @@
 local __APPLICATION__ = 'demo_extract'
 local __VERSION__ = '1.0.0'
 
-require 'muhkuh_cli_init'
 local argparse = require 'argparse'
 local cNetfieldLabel = require 'netfield_label'
 local json = require 'dkjson'
