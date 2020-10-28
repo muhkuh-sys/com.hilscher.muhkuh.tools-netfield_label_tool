@@ -19,15 +19,6 @@ for strSrc, strDst in pairs(atScripts) do
 end
 
 
--- Install the CLI init script.
-if strDistId=='windows' then
-  t:install('local/windows/muhkuh_cli_init.lua', '${install_base}/')
-elseif strDistId=='ubuntu' then
-  t:install('local/linux/muhkuh_cli_init.lua', '${install_base}/')
-  t:install('local/linux/lua5.1.sh', '${install_base}/')
-end
-
-
 -- Create the package file.
 local strPackageText = t:replace_template([[PACKAGE_NAME=${root_artifact_artifact}
 PACKAGE_VERSION=${root_artifact_version}
