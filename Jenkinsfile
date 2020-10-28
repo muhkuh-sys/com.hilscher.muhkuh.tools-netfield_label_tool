@@ -27,7 +27,7 @@ node {
         atBuilds.each { atEntry ->
             stage("${atEntry[0]} ${atEntry[1]} ${atEntry[2]}"){
                 /* Build the project. */
-                sh "python2.7 build_artifact.py ${atEntry[0]} ${atEntry[1]} ${atEntry[2]}"
+                sh "python3 build_artifact.py ${atEntry[0]} ${atEntry[1]} ${atEntry[2]}"
             }
         }
 
