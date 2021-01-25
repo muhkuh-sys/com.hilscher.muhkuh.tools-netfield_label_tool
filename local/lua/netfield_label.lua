@@ -448,11 +448,11 @@ end
 
 
 
-function netFieldLabel:__tags2binary()
+function netFieldLabel:__tags2binary(tTags)
   local tLog = self.tLog
   local atBinTags = {}
 
-  for uiCnt, tAttr in ipairs(self.tTags) do
+  for uiCnt, tAttr in ipairs(tTags) do
     local strData, strError = tAttr.attr.tStruct:write(tAttr.data)
     if strData==nil then
       tLog.error('Failed to encode tag %d: %s', uiCnt, strError)
@@ -570,9 +570,82 @@ end
 
 
 
+function netFieldLabel:readJson(tJson)
+  local tResult = true
+  local tTags = {}
+
+  -- The input must be a table.
+  if type(tJson)~='table' then
+    tLog.error('The function "readJson" must have a table as a parameter.')
+    tResult = false
+  else
+
+    -- Loop over all entries in the table.
+    for uiCnt, tJson in ipairs(tJson) do
+      -- Each entry must have an "id" and a "data" entry.
+      local strId = tJson.id
+      local tData = tJson.data
+      if strId==nil then
+        tLog.error('Entry %d has no "id" entry.', uiCnt)
+        tResult = false
+      elseif type(strId)~='string' then
+        tLog.error('The attribute "id" of entry %d is no string.', uiCnt)
+        tResult = false
+      end
+      if tData==nil then
+        tLog.error('Entry %d has no "data" entry.', uiCnt)
+        tResult = false
+      elseif type(tData)~='table' then
+        tLog.error('The attribute "data" of entry %d is no table.', uiCnt)
+        tResult = false
+      end
+      if tResult~=true then
+        break
+      end
+
+      -- Find the tag definition for the ID.
+      local tTag
+      for _, tTagCnt in pairs(self.atTags) do
+        if tTagCnt.name==strId then
+          tTag = tTagCnt
+          break
+        end
+      end
+      if tTag==nil then
+        tLog.error('Entry %d has an invalid tag name: "%s"', uiCnt, strId)
+        tResult = false
+        break
+      end
+
+      -- Try to decode the data.
+      local tTest = tTag.tStruct:write(tData)
+      if tTest==nil then
+        tLog.error('The data of entry %d can not be parsed.', uiCnt)
+        tResult = false
+        break
+      end
+
+      -- Append the new entry to the list of tags.
+      table.insert(tTags, {
+        id = tTag.id,
+        data = tData,
+        attr = tTag
+      })
+    end
+  end
+
+  if tResult==true then
+    self.tTags = tTags
+  end
+
+  return tResult
+end
+
+
+
 function netFieldLabel:tobinary(fAddPadding)
   -- Get the contents of the label.
-  local strLabelContents = self:__tags2binary()
+  local strLabelContents = self:__tags2binary(self.tTags)
   local sizLabelContents = string.len(strLabelContents)
 
   -- Build the CRC for the tags.

@@ -142,8 +142,15 @@ else
     error('Failed to read the input file.')
   end
 
+  -- Convert the JSON data to a table.
+  local tInputData, strError = json.decode(strInputData)
+  if tInputData==nil then
+    tLog.error('Failed to parse the JSON data: %s', strError)
+    error('Input file is no valid JSON.')
+  end
+
   -- Parse the input.
-  tNetfieldLabel:readJson(strInputData)
+  tNetfieldLabel:readJson(tInputData)
 end
 
 
