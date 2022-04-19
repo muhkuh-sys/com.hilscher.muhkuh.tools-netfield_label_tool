@@ -3,7 +3,7 @@
 	<info group="com.hilscher.muhkuh"
 	      module="tools"
 	      artifact="netfield_label_tool"
-	      version="0.0.4"
+	      version="0.0.5"
 	      vcs-id="${PROJECT_VERSION_VCS}"
 	      extension="tar.gz">
 		<license name="GPL-2.0"/>
