@@ -715,7 +715,7 @@ function netFieldLabel:__merge_tables(tPath, atMainTable, atPatchTable)
   -- Iterate over all elements of the patch table.
   for tPatchKey, tPatchValue in pairs(atPatchTable) do
     local strPatchKey
-    if table.maxn(tPath)==0 then
+    if #tPath==0 then
       strPatchKey = tostring(tPatchKey)
     else
       strPatchKey = '.' .. tostring(tPatchKey)
